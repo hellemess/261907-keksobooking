@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Елена Есина](https://up.htmlacademy.ru/javascript/8/user/261907).
-* Наставник: `Неизвестно`.
+* Наставник: [Максим Галышкин](https://up.htmlacademy.ru/javascript/8/user/276787).
 
 ---
 
