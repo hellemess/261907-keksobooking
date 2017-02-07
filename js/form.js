@@ -8,7 +8,8 @@ for (var i = 0; i < pin.length; i++) {
     for (var j = 0; j < pin.length; j++) {
       pin[j].classList.remove('pin--active');
     }
-    this.classList.add('pin--active');
+    var selectedPin = this;
+    selectedPin.classList.add('pin--active');
     dialog.style.display = 'block';
   });
 }
@@ -27,7 +28,7 @@ var address = document.querySelector('#address');
 
 var requiredField = function (field) {
   field.required = true;
-}
+};
 
 requiredField(title);
 requiredField(price);
@@ -45,8 +46,8 @@ var timeout = document.querySelector('#timeout');
 var roomNumber = document.querySelector('#room_number');
 var capacity = document.querySelector('#capacity');
 
-var autoFieldChanger = function(selectedField, dependentField) {
-  selectedField.addEventListener('change', function() {
+var autoFieldChanger = function (selectedField, dependentField) {
+  selectedField.addEventListener('change', function () {
     var selectedOption = 0;
     for (i = 0; i < selectedField.options.length; i++) {
       if (selectedField.options[i].selected) {
@@ -56,13 +57,13 @@ var autoFieldChanger = function(selectedField, dependentField) {
     var selectedValue = selectedField.options[selectedOption].value;
     var dependentOption = 0;
     for (i = 0; i < dependentField.options.length; i++) {
-      if (dependentField.options[i].value == selectedValue) {
+      if (dependentField.options[i].value === selectedValue) {
         dependentOption = i;
       }
     }
     dependentField.options[dependentOption].selected = true;
   });
-}
+};
 
 autoFieldChanger(time, timeout);
 autoFieldChanger(timeout, time);
@@ -71,7 +72,7 @@ autoFieldChanger(capacity, roomNumber);
 
 var apartmentType = document.querySelector('#type');
 
-apartmentType.addEventListener('change', function() {
+apartmentType.addEventListener('change', function () {
   var selectedType = 0;
   for (i = 0; i < apartmentType.options.length; i++) {
     if (apartmentType.options[i].selected) {
