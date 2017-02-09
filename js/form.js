@@ -13,7 +13,7 @@ var createButton = function (button) {
   button.setAttribute('role', 'button');
   button.setAttribute('aria-pressed', false);
   button.setAttribute('tabindex', 1);
-}
+};
 
 for (var i = 0; i < pin.length; i++) {
   createButton(pin[i]);
@@ -49,14 +49,14 @@ pinMap.addEventListener('click', function (evt) {
   if (evt.target.tagName === 'div') {
     var selectedPin = evt.target;
   } else {
-    var selectedPin = evt.path[1];
+    selectedPin = evt.path[1];
   }
   selectPin(selectedPin);
 });
 
 var isActivateEvent = function (evt) {
   return evt.keyCode && evt.keyCode === ENTER;
-}
+};
 
 pinMap.addEventListener('keydown', function (evt) {
   if (isActivateEvent(evt)) {
@@ -70,7 +70,7 @@ var closeDialog = function () {
   dialog.style.display = 'none';
   var activePin = pinMap.querySelector('.pin--active');
   activePin.classList.remove('pin--active');
-}
+};
 
 dialogClose.addEventListener('click', closeDialog);
 
