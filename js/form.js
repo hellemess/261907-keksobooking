@@ -2,7 +2,7 @@
 
 var ENTER = 13;
 
-var isActivateEvent = function (evt) {
+window.isActivateEvent = function (evt) {
   return evt.keyCode && evt.keyCode === ENTER;
 };
 
@@ -32,7 +32,7 @@ dialog.setAttribute('aria-labelledby', 'dialog-title');
 
 createButton(dialogClose, 1);
 
-initializePins();
+window.initializePins();
 
 var title = document.querySelector('#title');
 var price = document.querySelector('#price');

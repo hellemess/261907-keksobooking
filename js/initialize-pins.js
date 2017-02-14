@@ -2,7 +2,7 @@
 
 window.initializePins = function () {
   var clearPins = function () {
-    for (i = 0; i < window.pin.length; i++) {
+    for (var i = 0; i < window.pin.length; i++) {
       window.pin[i].classList.remove('pin--active');
       window.pin[i].setAttribute('aria-pressed', false);
     }
@@ -36,7 +36,7 @@ window.initializePins = function () {
   });
 
   window.pinMap.addEventListener('keydown', function (evt) {
-    if (isActivateEvent(evt)) {
+    if (window.isActivateEvent(evt)) {
       clearPins();
       var selectedPin = evt.target;
       selectPin(selectedPin);
@@ -46,7 +46,7 @@ window.initializePins = function () {
   window.dialogClose.addEventListener('click', closeDialog);
 
   window.dialogClose.addEventListener('keydown', function (evt) {
-    if (isActivateEvent(evt)) {
+    if (window.isActivateEvent(evt)) {
       closeDialog(evt);
     }
   });
