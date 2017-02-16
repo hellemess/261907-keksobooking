@@ -1,37 +1,5 @@
 'use strict';
 
-var ENTER = 13;
-
-window.isActivateEvent = function (evt) {
-  return evt.keyCode && evt.keyCode === ENTER;
-};
-
-var pinMap = document.querySelector('.tokyo__pin-map');
-var pin = pinMap.querySelectorAll('.pin');
-var defaultPin = pinMap.querySelector('.pin--active');
-var dialog = document.querySelector('.dialog');
-var dialogLabel = dialog.querySelector('.lodge__title');
-var dialogClose = dialog.querySelector('.dialog__close');
-
-var createButton = function (button, queueRanking) {
-  button.setAttribute('role', 'button');
-  button.setAttribute('aria-pressed', false);
-  button.setAttribute('tabindex', queueRanking);
-};
-
-for (var i = 0; i < pin.length; i++) {
-  createButton(pin[i], 2);
-}
-
-defaultPin.setAttribute('aria-pressed', true);
-
-dialog.setAttribute('role', 'dialog');
-dialog.setAttribute('aria-hidden', false);
-dialogLabel.setAttribute('id', 'dialog-title');
-dialog.setAttribute('aria-labelledby', 'dialog-title');
-
-createButton(dialogClose, 1);
-
 window.initializePins();
 
 var title = document.querySelector('#title');
