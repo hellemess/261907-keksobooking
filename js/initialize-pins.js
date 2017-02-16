@@ -22,7 +22,7 @@ window.initializePins = (function () {
   window.utils.createButton(dialogClose, 1);
 
   var clearPins = function () {
-    for (var i = 0; i < pin.length; i++) {
+    for (i = 0; i < pin.length; i++) {
       pin[i].classList.remove('pin--active');
       pin[i].setAttribute('aria-pressed', false);
     }
@@ -46,7 +46,7 @@ window.initializePins = (function () {
       return;
     }
     clearPins();
-    evt.target.classList.contains('pin') ? selectedPin = evt.target : selectedPin = evt.path[1];
+    (evt.target.classList.contains('pin')) ? (selectedPin = evt.target) : (selectedPin = evt.path[1]);
     selectPin(selectedPin);
   });
 
