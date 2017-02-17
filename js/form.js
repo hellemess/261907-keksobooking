@@ -32,7 +32,7 @@ window.form = (function () {
 
   document.querySelector('.footer-logo-link').removeAttribute('tabindex');
 
-  return function() {};
+  return function () {};
 })();
 
 window.form();
