@@ -1,53 +1,68 @@
 'use strict';
 
-window.initializePins = function () {
+window.initializePins = (function () {
+  var pinMap = document.querySelector('.tokyo__pin-map');
+  var pin = pinMap.querySelectorAll('.pin');
+  var selectedPin = pinMap.querySelector('.pin--active');
+  var dialog = document.querySelector('.dialog');
+  var dialogLabel = dialog.querySelector('.lodge__title');
+  var dialogClose = dialog.querySelector('.dialog__close');
+
+  for (var i = 0; i < pin.length; i++) {
+    window.utils.createButton(pin[i], 2);
+  }
+
+  selectedPin.setAttribute('aria-pressed', true);
+
+  dialog.setAttribute('role', 'dialog');
+  dialog.setAttribute('aria-hidden', false);
+  dialogLabel.setAttribute('id', 'dialog-title');
+  dialog.setAttribute('aria-labelledby', 'dialog-title');
+
+  window.utils.createButton(dialogClose, 1);
+
   var clearPins = function () {
-    for (var i = 0; i < window.pin.length; i++) {
-      window.pin[i].classList.remove('pin--active');
-      window.pin[i].setAttribute('aria-pressed', false);
+    for (i = 0; i < pin.length; i++) {
+      pin[i].classList.remove('pin--active');
+      pin[i].setAttribute('aria-pressed', false);
     }
   };
 
   var selectPin = function (target) {
     target.classList.add('pin--active');
     target.setAttribute('aria-pressed', true);
-    window.dialog.style.display = 'block';
-    window.dialogClose.focus();
+    dialog.style.display = 'block';
+    dialogClose.focus();
   };
 
   var closeDialog = function (evt) {
     evt.preventDefault();
-    window.dialog.style.display = 'none';
-    var activePin = window.pinMap.querySelector('.pin--active');
-    activePin.classList.remove('pin--active');
+    dialog.style.display = 'none';
+    selectedPin.classList.remove('pin--active');
   };
 
-  window.pinMap.addEventListener('click', function (evt) {
+  pinMap.addEventListener('click', function (evt) {
     if (evt.path < 8) {
       return;
     }
     clearPins();
-    if (evt.target.tagName === 'div') {
-      var selectedPin = evt.target;
-    } else {
-      selectedPin = evt.path[1];
-    }
+    selectedPin = evt.target.classList.contains('pin') ? evt.target : evt.path[1];
     selectPin(selectedPin);
   });
 
-  window.pinMap.addEventListener('keydown', function (evt) {
-    if (window.isActivateEvent(evt)) {
+  pinMap.addEventListener('keydown', function (evt) {
+    if (window.utils.isActivationEvent(evt)) {
       clearPins();
-      var selectedPin = evt.target;
+      selectedPin = evt.target;
       selectPin(selectedPin);
     }
   });
 
-  window.dialogClose.addEventListener('click', closeDialog);
+  dialogClose.addEventListener('click', closeDialog);
 
-  window.dialogClose.addEventListener('keydown', function (evt) {
-    if (window.isActivateEvent(evt)) {
+  dialogClose.addEventListener('keydown', function (evt) {
+    if (window.utils.isActivationEvent(evt)) {
       closeDialog(evt);
     }
   });
-};
+})();
