@@ -46,7 +46,7 @@ window.initializePins = (function () {
       return;
     }
     clearPins();
-    (evt.target.classList.contains('pin')) ? (selectedPin = evt.target) : (selectedPin = evt.path[1]);
+    selectedPin = evt.target.classList.contains('pin') ? evt.target : evt.path[1];
     selectPin(selectedPin);
   });
 
