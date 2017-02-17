@@ -65,6 +65,4 @@ window.initializePins = (function () {
       closeDialog(evt);
     }
   });
-
-  return function () {};
 })();

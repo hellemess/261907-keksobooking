@@ -1,8 +1,6 @@
 'use strict';
 
 window.form = (function () {
-  window.initializePins();
-
   var title = document.querySelector('#title');
   var price = document.querySelector('#price');
   var address = document.querySelector('#address');
@@ -31,8 +29,4 @@ window.form = (function () {
   window.synchronizeFields(apartmentType, price, [1000, 0, 10000], [1000, 0, 10000], 'min');
 
   document.querySelector('.footer-logo-link').removeAttribute('tabindex');
-
-  return function () {};
 })();
-
-window.form();
