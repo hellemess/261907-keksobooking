@@ -22,11 +22,19 @@ window.form = (function () {
   var capacity = document.querySelector('#capacity');
   var apartmentType = document.querySelector('#type');
 
-  window.synchronizeFields(time, timeout, [12, 13, 14], [12, 13, 14], 'value');
-  window.synchronizeFields(timeout, time, [12, 13, 14], [12, 13, 14], 'value');
-  window.synchronizeFields(roomNumber, capacity, [0, 3, 3], [3, 0], 'value');
-  window.synchronizeFields(capacity, roomNumber, [3, 0], [0, 3, 3], 'value');
-  window.synchronizeFields(apartmentType, price, [1000, 0, 10000], [1000, 0, 10000], 'min');
+  var synchronizeValues = function (element, value) {
+    element.value = value;
+  };
+
+  var synchronizeValueWithMin = function (element, value) {
+    element.min = value;
+  };
+
+  window.synchronizeFields(time, timeout, [12, 13, 14], [12, 13, 14], synchronizeValues);
+  window.synchronizeFields(timeout, time, [12, 13, 14], [12, 13, 14], synchronizeValues);
+  window.synchronizeFields(roomNumber, capacity, [0, 3, 3], [3, 0], synchronizeValues);
+  window.synchronizeFields(capacity, roomNumber, [3, 0], [0, 3, 3], synchronizeValues);
+  window.synchronizeFields(apartmentType, price, [1000, 0, 10000], [1000, 0, 10000], synchronizeValueWithMin);
 
   document.querySelector('.footer-logo-link').removeAttribute('tabindex');
 })();
