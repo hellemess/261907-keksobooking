@@ -25,10 +25,13 @@ window.showCard = (function () {
     }
   };
 
-  var openDialog = function () {
-    dialog.style.display = 'block';
-    dialogClose.focus();
+  var listenToDialog = function () {
+    document.addEventListener('keydown', onEscDown);
+    dialogClose.addEventListener('click', closeDialog);
+    dialogClose.addEventListener('keydown', onEnterDown);
   };
+
+  listenToDialog();
 
   var closeDialog = function (evt) {
     evt.preventDefault();
@@ -43,13 +46,10 @@ window.showCard = (function () {
     }
   };
 
-  var listenToDialog = function () {
-    document.addEventListener('keydown', onEscDown);
-    dialogClose.addEventListener('click', closeDialog);
-    dialogClose.addEventListener('keydown', onEnterDown);
+  var openDialog = function () {
+    dialog.style.display = 'block';
+    dialogClose.focus();
   };
-
-  listenToDialog();
 
   return function (cb) {
     openDialog();
