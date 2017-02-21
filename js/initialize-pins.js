@@ -51,15 +51,15 @@ window.initializePins = (function () {
             lodgeType.innerHTML = 'Лачуга';
             break;
           case 'house':
-            lodgeType.innerHTML = 'Дом'
+            lodgeType.innerHTML = 'Дом';
             break;
         }
         dialogElement.querySelector('.lodge__rooms-and-guests').innerHTML = selectedCard.offer.rooms + ' комнаты для ' + selectedCard.offer.guests + ' гостей';
-        dialogElement.querySelector('.lodge__checkin-time').innerHTML = 'Заед после ' + selectedCard.offer.checkin  + ', выезд до ' + selectedCard.offer.checkout;
+        dialogElement.querySelector('.lodge__checkin-time').innerHTML = 'Заед после ' + selectedCard.offer.checkin + ', выезд до ' + selectedCard.offer.checkout;
         var features = dialogElement.querySelector('.lodge__features');
-        var checkForFeature = function (feature, i) {
+        var checkForFeature = function (feature, index) {
           if (!selectedCard.offer.features.includes(feature)) {
-            features.children[i].style.display = 'none';
+            features.children[index].style.display = 'none';
           }
         };
         checkForFeature('wifi', 0);
@@ -92,7 +92,6 @@ window.initializePins = (function () {
       if (evt.path < 8) {
         return;
       }
-      console.log(evt.target);
       selectedPin = evt.target.classList.contains('pin') ? evt.target : evt.path[1];
       window.showCard();
       selectPin(selectedPin);
