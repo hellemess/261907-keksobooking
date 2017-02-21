@@ -27,6 +27,7 @@ window.showCard = (function () {
 
   var closeDialog = function (evt) {
     evt.preventDefault();
+    window.utils.clearPins();
     dialog.style.display = 'none';
     document.removeEventListener('keydown', onEscDown);
     dialogClose.removeEventListener('click', closeDialog);

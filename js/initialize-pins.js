@@ -28,11 +28,7 @@ window.initializePins = (function () {
     }
 
     var selectPin = function (target) {
-      var activePin = pinMap.querySelector('.pin--active');
-      if (activePin) {
-        activePin.setAttribute('aria-pressed', false);
-        activePin.classList.remove('pin--active');
-      }
+      window.utils.clearPins();
       target.classList.add('pin--active');
       target.setAttribute('aria-pressed', true);
       var targetIndex = target.getAttribute('id');
