@@ -103,7 +103,7 @@ window.initializePins = (function () {
       }
     });
   }, function (error) {
-    pinMap.insertAdjacentHTML('afterbegin', '<div class="load-error">' + error + '</div>')
+    pinMap.insertAdjacentHTML('afterbegin', '<div class="load-error">' + error + '</div>');
     var errorElement = pinMap.querySelector('.load-error');
     errorElement.style = 'position: absolute; top: 50%; left: 50%; z-index: 1; padding: 20px; transform: translate(-50%, -50%); background: white; border: 3px solid #ff5635';
     errorElement.setAttribute('role', 'alertdialog');
