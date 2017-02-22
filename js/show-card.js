@@ -25,18 +25,10 @@ window.showCard = (function () {
     }
   };
 
-  var listenToDialog = function () {
-    document.addEventListener('keydown', onEscDown);
-    dialogClose.addEventListener('click', closeDialog);
-    dialogClose.addEventListener('keydown', onEnterDown);
-  };
-
-  listenToDialog();
-
   var closeDialog = function (evt) {
     evt.preventDefault();
+    window.utils.clearPins();
     dialog.style.display = 'none';
-    window.initializePins.deselectPin();
     document.removeEventListener('keydown', onEscDown);
     dialogClose.removeEventListener('click', closeDialog);
     dialogClose.removeEventListener('keydown', onEnterDown);
@@ -53,7 +45,9 @@ window.showCard = (function () {
 
   return function (cb) {
     openDialog();
-    listenToDialog();
+    document.addEventListener('keydown', onEscDown);
+    dialogClose.addEventListener('click', closeDialog);
+    dialogClose.addEventListener('keydown', onEnterDown);
     onDialogClose = cb;
   };
 })();

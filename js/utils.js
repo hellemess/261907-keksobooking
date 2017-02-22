@@ -5,6 +5,13 @@ window.utils = (function () {
   var ESC = 27;
 
   return {
+    clearPins: function () {
+      var activePin = document.querySelector('.pin--active');
+      if (activePin) {
+        activePin.setAttribute('aria-pressed', false);
+        activePin.classList.remove('pin--active');
+      }
+    },
     createButton: function (button, queueRanking) {
       button.setAttribute('role', 'button');
       button.setAttribute('aria-pressed', false);
