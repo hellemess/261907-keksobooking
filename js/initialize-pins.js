@@ -51,12 +51,10 @@ window.initializePins = (function () {
             break;
         }
         dialogElement.querySelector('.lodge__rooms-and-guests').innerHTML = selectedCard.offer.rooms + ' комнаты для ' + selectedCard.offer.guests + ' гостей';
-        dialogElement.querySelector('.lodge__checkin-time').innerHTML = 'Заед после ' + selectedCard.offer.checkin + ', выезд до ' + selectedCard.offer.checkout;
+        dialogElement.querySelector('.lodge__checkin-time').innerHTML = 'Заезд после ' + selectedCard.offer.checkin + ', выезд до ' + selectedCard.offer.checkout;
         var features = dialogElement.querySelector('.lodge__features');
         var checkForFeature = function (feature, index) {
-          if (!selectedCard.offer.features.includes(feature)) {
-            features.children[index].style.display = 'none';
-          }
+          features.children[index].style.display = !selectedCard.offer.features.includes(feature) ? 'none' : 'block';
         };
         checkForFeature('wifi', 0);
         checkForFeature('dishwasher', 1);
