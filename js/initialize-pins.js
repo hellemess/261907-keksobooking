@@ -44,7 +44,7 @@ window.initializePins = (function () {
             lodgeType.innerHTML = 'Квартира';
             break;
           case 'bungalo':
-            lodgeType.innerHTML = 'Лачуга';
+            lodgeType.innerHTML = 'Сарай';
             break;
           case 'house':
             lodgeType.innerHTML = 'Дом';
@@ -100,6 +100,22 @@ window.initializePins = (function () {
           selectedPin.focus();
         });
         selectPin(selectedPin);
+      }
+    });
+  }, function (error) {
+    pinMap.insertAdjacentHTML('afterbegin', '<div class="load-error">' + error + '</div>')
+    var errorElement = pinMap.querySelector('.load-error');
+    errorElement.style = 'position: absolute; top: 50%; left: 50%; z-index: 1; padding: 20px; transform: translate(-50%, -50%); background: white; border: 3px solid #ff5635';
+    errorElement.setAttribute('role', 'alertdialog');
+    errorElement.setAttribute('aria-label', error);
+    errorElement.setAttribute('tabindex', '1');
+    errorElement.focus();
+    errorElement.addEventListener('click', function () {
+      pinMap.removeChild(errorElement);
+    });
+    errorElement.addEventListener('keydown', function (evt) {
+      if (window.utils.isActivationEvent(evt) || window.utils.isDeactivationEvent(evt)) {
+        pinMap.removeChild(errorElement);
       }
     });
   });

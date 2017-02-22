@@ -13,7 +13,9 @@ window.load = (function () {
     });
 
     xhr.addEventListener('error', onError);
-    xhr.addEventListener('timeout', onError);
+    xhr.addEventListener('timeout', function () {
+      onError('Время ожидания ответа от сервера вышло.');
+    });
 
     xhr.open('GET', url);
     xhr.send();
