@@ -132,7 +132,9 @@ window.initializePins = (function () {
 
     filtersContainer.addEventListener('change', function (evt) {
       dialogElement.style.display = 'none';
-      var target = evt.target, filterKey, filterValue;
+      var target = evt.target;
+      var filterKey;
+      var filterValue;
       if (evt.path.length === 10) {
         filterKey = target.name;
         filterValue = target.value;
@@ -143,7 +145,7 @@ window.initializePins = (function () {
       if (filterValue === 'any' || filterValue === false) {
         delete requested[filterKey];
       } else {
-        requested[filterKey] = +filterValue ? +filterValue : filterValue;
+        requested[filterKey] = filterValue;
       }
       var pinsToRender = [];
       for (i = 0; i < similarApartments.length; i++) {
@@ -156,7 +158,7 @@ window.initializePins = (function () {
                 indicator = offer[key] < 10000;
                 break;
               case 'middle':
-                indicator = offer[key] >=10000 && offer[key] <= 50000;
+                indicator = offer[key] >= 10000 && offer[key] <= 50000;
                 break;
               case 'hight':
                 indicator = offer[key] > 50000;
@@ -164,7 +166,7 @@ window.initializePins = (function () {
           } else if (typeof requested[key] === 'boolean') {
             indicator = offer.features.includes(key);
           } else {
-            indicator = requested[key] === offer[key];
+            indicator = requested[key] === offer[key] || +requested[key] === offer[key];
           }
           if (!indicator) {
             break;
@@ -178,7 +180,7 @@ window.initializePins = (function () {
       pinMap.innerHTML = '';
       pinMap.appendChild(pinMain);
       for (i = 0; i < pinsQuantity; i++) {
-        var pinElement = pinToClone.cloneNode(true);
+        pinElement = pinToClone.cloneNode(true);
         pinElement.setAttribute('id', pinsToRender[0]);
         pinElement.children[0].src = similarApartments[pinsToRender[0]].author.avatar;
         pinElement.style.top = similarApartments[pinsToRender[0]].location.y + 'px';
