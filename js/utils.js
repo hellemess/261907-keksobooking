@@ -11,7 +11,7 @@ window.utils = (function () {
   return {
     clearPins: function () {
       var activePin = document.querySelector('.pin--active');
-      if (activePin) {
+      if (activePin !== null) {
         activePin.setAttribute('aria-pressed', false);
         activePin.classList.remove('pin--active');
       }
@@ -27,7 +27,7 @@ window.utils = (function () {
         var shift = {
           x: startPoint.x - moveEvt.clientX,
           y: startPoint.y - moveEvt.clientY,
-        }
+        };
 
         element.style.top = element.offsetTop - shift.y + 'px';
         element.style.left = element.offsetLeft - shift.x + 'px';

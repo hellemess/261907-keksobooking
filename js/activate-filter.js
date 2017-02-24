@@ -54,25 +54,27 @@ window.activateFilter = (function () {
       for (var i = 0; i < array.length; i++) {
         var offer = array[i].offer;
         for (var key in requested) {
-          var indicator = false;
-          if (key === 'price') {
-            switch (requested[key]) {
-              case 'low':
-                indicator = offer[key] < 10000;
-                break;
-              case 'middle':
-                indicator = offer[key] >= 10000 && offer[key] <= 50000;
-                break;
-              case 'hight':
-                indicator = offer[key] > 50000;
+          if (requested.hasOwnProperty(key)) {
+            var indicator = false;
+            if (key === 'price') {
+              switch (requested[key]) {
+                case 'low':
+                  indicator = offer[key] < 10000;
+                  break;
+                case 'middle':
+                  indicator = offer[key] >= 10000 && offer[key] <= 50000;
+                  break;
+                case 'hight':
+                  indicator = offer[key] > 50000;
+              }
+            } else if (typeof requested[key] === 'boolean') {
+              indicator = offer.features.includes(key);
+            } else {
+              indicator = requested[key] === offer[key] || +requested[key] === offer[key];
             }
-          } else if (typeof requested[key] === 'boolean') {
-            indicator = offer.features.includes(key);
-          } else {
-            indicator = requested[key] === offer[key] || +requested[key] === offer[key];
-          }
-          if (!indicator) {
-            break;
+            if (!indicator) {
+              break;
+            }
           }
         }
         if (indicator) {
@@ -87,5 +89,5 @@ window.activateFilter = (function () {
         pinsToRender.shift();
       }
     }, true);
-  }
+  };
 })();
