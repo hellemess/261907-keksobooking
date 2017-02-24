@@ -42,6 +42,8 @@ window.showCard = (function () {
     }
   };
 
+  window.utils.dragElement(dialog);
+
   return function (cb) {
     openDialog();
     document.addEventListener('keydown', onEscDown);
