@@ -28,7 +28,7 @@ window.initializePins = (function () {
       target.classList.add('pin--active');
       target.setAttribute('aria-pressed', true);
       var targetIndex = target.getAttribute('id');
-      if (typeof targetIndex === 'number') {
+      if (targetIndex) {
         var selectedCard = similarApartments[targetIndex];
         window.presentation.fillCard(dialog, selectedCard);
       } else {
