@@ -38,7 +38,7 @@ window.activateFilter = (function () {
       var target = evt.target;
       var filterKey;
       var filterValue;
-      if (evt.path.length === 10) {
+      if (evt.target.tagName.toLowerCase() === 'select') {
         filterKey = target.name;
         filterValue = target.value;
       } else {
