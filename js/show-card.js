@@ -2,13 +2,12 @@
 
 window.showCard = (function () {
   var dialog = document.querySelector('.dialog');
-  var dialogLabel = dialog.querySelector('.lodge__title');
   var dialogClose = dialog.querySelector('.dialog__close');
   var onDialogClose = null;
 
   dialog.setAttribute('role', 'dialog');
   dialog.setAttribute('aria-hidden', false);
-  dialogLabel.setAttribute('id', 'dialog-title');
+  dialog.querySelector('.lodge__title').setAttribute('id', 'dialog-title');
   dialog.setAttribute('aria-labelledby', 'dialog-title');
 
   window.utils.createButton(dialogClose, 1);
@@ -25,6 +24,11 @@ window.showCard = (function () {
     }
   };
 
+  var openDialog = function () {
+    dialog.style.display = 'block';
+    dialogClose.focus();
+  };
+
   var closeDialog = function (evt) {
     evt.preventDefault();
     window.utils.clearPins();
@@ -36,11 +40,6 @@ window.showCard = (function () {
     if (typeof onDialogClose === 'function') {
       onDialogClose();
     }
-  };
-
-  var openDialog = function () {
-    dialog.style.display = 'block';
-    dialogClose.focus();
   };
 
   return function (cb) {
