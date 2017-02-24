@@ -36,10 +36,7 @@ window.initializePins = (function () {
     };
 
     pinMap.addEventListener('click', function (evt) {
-      if (evt.path < 8) {
-        return;
-      }
-      selectedPin = evt.target.classList.contains('pin') ? evt.target : evt.path[1];
+      selectedPin = evt.target.classList.contains('pin') ? evt.target : evt.target.parentElement;
       window.showCard();
       selectPin(selectedPin);
     });
