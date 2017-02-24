@@ -4,9 +4,38 @@ window.initializePins = (function () {
   var URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
 
   var pinMap = document.querySelector('.tokyo__pin-map');
+  var pinMain = pinMap.querySelector('.pin__main');
   var pinToClone = document.querySelector('#pin-template').content.querySelector('.pin');
   var dialogElement = document.querySelector('.dialog');
   dialogElement.style.display = 'none';
+
+  var filtersContainer = document.querySelector('.tokyo__filters-container');
+  var filterSelects = filtersContainer.querySelectorAll('.tokyo__filter');
+  var requested = {
+    price: 'middle'
+  };
+
+  var setKeyNames = function (field) {
+    var keyName;
+    switch (field.name) {
+      case 'housing_type':
+        keyName = 'type';
+        break;
+      case 'housing_price':
+        keyName = 'price';
+        break;
+      case 'housing_room-number':
+        keyName = 'rooms';
+        break;
+      case 'housing_guests-number':
+        keyName = 'guests';
+    }
+    return keyName;
+  };
+
+  filterSelects.forEach(function (field) {
+    field.name = setKeyNames(field);
+  });
 
   window.load(URL, function (data) {
     var similarApartments = JSON.parse(data);
@@ -100,6 +129,64 @@ window.initializePins = (function () {
         selectPin(selectedPin);
       }
     });
+
+    filtersContainer.addEventListener('change', function (evt) {
+      dialogElement.style.display = 'none';
+      var target = evt.target, filterKey, filterValue;
+      if (evt.path.length === 10) {
+        filterKey = target.name;
+        filterValue = target.value;
+      } else {
+        filterKey = target.value;
+        filterValue = target.checked;
+      }
+      if (filterValue === 'any' || filterValue === false) {
+        delete requested[filterKey];
+      } else {
+        requested[filterKey] = +filterValue ? +filterValue : filterValue;
+      }
+      var pinsToRender = [];
+      for (i = 0; i < similarApartments.length; i++) {
+        var offer = similarApartments[i].offer;
+        for (var key in requested) {
+          var indicator = false;
+          if (key === 'price') {
+            switch (requested[key]) {
+              case 'low':
+                indicator = offer[key] < 10000;
+                break;
+              case 'middle':
+                indicator = offer[key] >=10000 && offer[key] <= 50000;
+                break;
+              case 'hight':
+                indicator = offer[key] > 50000;
+            }
+          } else if (typeof requested[key] === 'boolean') {
+            indicator = offer.features.includes(key);
+          } else {
+            indicator = requested[key] === offer[key];
+          }
+          if (!indicator) {
+            break;
+          }
+        }
+        if (indicator) {
+          pinsToRender.push(i);
+        }
+      }
+      var pinsQuantity = pinsToRender.length;
+      pinMap.innerHTML = '';
+      pinMap.appendChild(pinMain);
+      for (i = 0; i < pinsQuantity; i++) {
+        var pinElement = pinToClone.cloneNode(true);
+        pinElement.setAttribute('id', pinsToRender[0]);
+        pinElement.children[0].src = similarApartments[pinsToRender[0]].author.avatar;
+        pinElement.style.top = similarApartments[pinsToRender[0]].location.y + 'px';
+        pinElement.style.left = similarApartments[pinsToRender[0]].location.x + 'px';
+        pinMap.appendChild(pinElement);
+        pinsToRender.shift();
+      }
+    }, true);
   }, function (error) {
     pinMap.insertAdjacentHTML('afterbegin', '<div class="load-error">' + error + '</div>');
     var errorElement = pinMap.querySelector('.load-error');
