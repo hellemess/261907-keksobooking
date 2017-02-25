@@ -8,7 +8,7 @@ window.initializePins = (function () {
 
   window.load(URL, function (data) {
     var similarApartments = JSON.parse(data);
-    var pinsToRenderOnLoad = window.utils.getArrayOfRandomIndexes(similarApartments, 3)
+    var pinsToRenderOnLoad = window.utils.getArrayOfRandomIndexes(similarApartments, 3);
 
     window.presentation.renderArray(similarApartments, pinsToRenderOnLoad, pinMap);
 

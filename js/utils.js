@@ -78,7 +78,7 @@ window.utils = (function () {
         indexes.push(i);
       }
 
-      for (var i = 0; i < quantity; i++) {
+      for (i = 0; i < quantity; i++) {
         var randomPin = indexes[Math.floor(Math.random() * indexes.length)];
         indexes.splice(indexes.indexOf(randomPin), 1);
         randomIndexes.push(randomPin);

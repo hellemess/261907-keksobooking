@@ -95,7 +95,7 @@ window.activateFilter = (function () {
       pinMap.innerHTML = '';
       pinMap.appendChild(pinMain);
 
-      window,presentation.renderArray(array, pinsToRender, pinMap);
+      window.presentation.renderArray(array, pinsToRender, pinMap);
     }, true);
   };
 })();
