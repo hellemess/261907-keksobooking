@@ -3,15 +3,18 @@
 window.activateFilter = (function () {
   var pinMap = document.querySelector('.tokyo__pin-map');
   var pinMain = pinMap.querySelector('.pin__main');
-  var dialog = document.querySelector('.dialog');
   var filtersContainer = document.querySelector('.tokyo__filters-container');
   var filterSelects = filtersContainer.querySelectorAll('.tokyo__filter');
+  var filterKey;
+  var filterValue;
+
   var requested = {
     price: 'middle'
   };
 
   var setKeyNames = function (field) {
     var keyName;
+
     switch (field.name) {
       case 'housing_type':
         keyName = 'type';
@@ -25,6 +28,7 @@ window.activateFilter = (function () {
       case 'housing_guests-number':
         keyName = 'guests';
     }
+
     return keyName;
   };
 
@@ -34,10 +38,9 @@ window.activateFilter = (function () {
 
   return function (array) {
     filtersContainer.addEventListener('change', function (evt) {
-      dialog.style.display = 'none';
+      window.card.hide();
       var target = evt.target;
-      var filterKey;
-      var filterValue;
+
       if (evt.target.tagName.toLowerCase() === 'select') {
         filterKey = target.name;
         filterValue = target.value;
@@ -45,49 +48,54 @@ window.activateFilter = (function () {
         filterKey = target.value;
         filterValue = target.checked;
       }
+
       if (filterValue === 'any' || filterValue === false) {
         delete requested[filterKey];
       } else {
         requested[filterKey] = filterValue;
       }
+
+      var requestedKeys = Object.keys(requested);
       var pinsToRender = [];
+
       for (var i = 0; i < array.length; i++) {
         var offer = array[i].offer;
-        for (var key in requested) {
-          if (requested.hasOwnProperty(key)) {
-            var indicator = false;
-            if (key === 'price') {
-              switch (requested[key]) {
-                case 'low':
-                  indicator = offer[key] < 10000;
-                  break;
-                case 'middle':
-                  indicator = offer[key] >= 10000 && offer[key] <= 50000;
-                  break;
-                case 'hight':
-                  indicator = offer[key] > 50000;
-              }
-            } else if (typeof requested[key] === 'boolean') {
-              indicator = offer.features.includes(key);
-            } else {
-              indicator = requested[key] === offer[key] || +requested[key] === offer[key];
+
+        for (var j = 0; j < requestedKeys.length; j++) {
+          var indicator = false;
+          var currentKey = requestedKeys[j];
+
+          if (currentKey === 'price') {
+            switch (requested[currentKey]) {
+              case 'low':
+                indicator = offer[currentKey] < 10000;
+                break;
+              case 'middle':
+                indicator = offer[currentKey] >= 10000 && offer[currentKey] <= 50000;
+                break;
+              case 'hight':
+                indicator = offer[currentKey] > 50000;
             }
-            if (!indicator) {
-              break;
-            }
+          } else if (typeof requested[currentKey] === 'boolean') {
+            indicator = offer.features.includes(currentKey);
+          } else {
+            indicator = requested[currentKey] === offer[currentKey] || +requested[currentKey] === offer[currentKey];
+          }
+
+          if (!indicator) {
+            break;
           }
         }
+
         if (indicator) {
           pinsToRender.push(i);
         }
       }
-      var pinsQuantity = pinsToRender.length;
+
       pinMap.innerHTML = '';
       pinMap.appendChild(pinMain);
-      for (i = 0; i < pinsQuantity; i++) {
-        window.presentation.renderArray(array, pinsToRender[0], pinMap);
-        pinsToRender.shift();
-      }
+
+      window,presentation.renderArray(array, pinsToRender, pinMap);
     }, true);
   };
 })();
