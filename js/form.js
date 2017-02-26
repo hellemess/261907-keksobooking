@@ -15,6 +15,7 @@ window.form = (function () {
   price.max = 1000000;
 
   address.required = true;
+  address.setAttribute('readonly', true);
 
   var time = document.querySelector('#time');
   var timeout = document.querySelector('#timeout');
