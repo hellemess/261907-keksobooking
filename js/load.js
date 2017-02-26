@@ -12,7 +12,10 @@ window.load = (function () {
       }
     });
 
-    xhr.addEventListener('error', onError);
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка загрузки.');
+    });
+
     xhr.addEventListener('timeout', function () {
       onError('Время ожидания ответа от сервера вышло.');
     });

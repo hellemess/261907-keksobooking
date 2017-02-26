@@ -6,10 +6,12 @@ window.synchronizeFields = (function () {
       if (typeof selectedField[i] === 'object') {
         selectedField[i].value = selectedArray[i];
       }
+
       if (typeof dependentField[i] === 'object') {
         dependentField[i].value = dependentArray[i];
       }
     }
+
     selectedField.addEventListener('change', function () {
       cb(dependentField, selectedField.value);
     });

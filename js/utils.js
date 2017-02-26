@@ -11,6 +11,7 @@ window.utils = (function () {
   return {
     clearPins: function () {
       var activePin = document.querySelector('.pin--active');
+
       if (activePin !== null) {
         activePin.setAttribute('aria-pressed', false);
         activePin.classList.remove('pin--active');
@@ -24,6 +25,7 @@ window.utils = (function () {
     dragElement: function (element, cb) {
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
+
         var shift = {
           x: startPoint.x - moveEvt.clientX,
           y: startPoint.y - moveEvt.clientY,
@@ -39,8 +41,8 @@ window.utils = (function () {
       };
 
       var onMouseUp = function (upEvt) {
-        onAddressRequest = cb;
         upEvt.preventDefault();
+        onAddressRequest = cb;
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
         isDragging = false;
@@ -67,6 +69,22 @@ window.utils = (function () {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
       });
+    },
+    getArrayOfRandomIndexes: function (array, quantity) {
+      var indexes = [];
+      var randomIndexes = [];
+
+      for (var i = 0; i < array.length; i++) {
+        indexes.push(i);
+      }
+
+      for (i = 0; i < quantity; i++) {
+        var randomPin = indexes[Math.floor(Math.random() * indexes.length)];
+        indexes.splice(indexes.indexOf(randomPin), 1);
+        randomIndexes.push(randomPin);
+      }
+
+      return randomIndexes;
     },
     isActivationEvent: function (evt) {
       return evt.keyCode && evt.keyCode === ENTER;
