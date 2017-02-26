@@ -12,7 +12,12 @@ window.initializePins = (function () {
 
     window.presentation.renderArray(similarApartments, pinsToRenderOnLoad, pinMap);
 
+    var pin = pinMap.querySelectorAll('.pin');
     var selectedPin = null;
+
+    for (var i = 0; i < pin.length; i++) {
+      window.utils.createButton(pin[i], 2);
+    }
 
     var selectPin = function (target) {
       window.utils.clearPins();

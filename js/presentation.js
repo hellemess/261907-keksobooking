@@ -14,7 +14,6 @@ window.presentation = (function () {
         pinElement.children[0].src = array[index].author.avatar;
         pinElement.style.top = array[index].location.y + 'px';
         pinElement.style.left = array[index].location.x + 'px';
-        window.utils.createButton(pinElement, 2);
         whereToRender.appendChild(pinElement);
         elementsToRender.shift();
       }
